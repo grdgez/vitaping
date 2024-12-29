@@ -1,5 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
+import computer
+
 
 class Interface(tk.Tk):
     def __init__(self):
@@ -33,6 +35,15 @@ class Interface(tk.Tk):
 
     def __create_tab2(self, tab):
         def __create_add_window():
+            def save_computer():
+                comp.name = name_entry.get()
+                comp.ipv4 = ipv4_entry.get()
+                comp.ipv6 = ipv6_entry.get()
+                comp.add()
+                name_entry.delete(0, tk.END)
+                ipv4_entry.delete(0, tk.END)
+                ipv6_entry.delete(0, tk.END)
+
             add_window = tk.Toplevel(index)
             add_window.geometry('500x200')
             add_window.title('New device')
@@ -48,7 +59,7 @@ class Interface(tk.Tk):
             ipv6_label.grid(row=2, column=0)
             ipv6_entry = ttk.Entry(add_window)
             ipv6_entry.grid(row=2, column=1)
-            save_button = ttk.Button(add_window, text='Save')
+            save_button = ttk.Button(add_window, text='Save', command=save_computer)
             save_button.grid(row=3, column=0, rowspan=2)
 
         add_button = ttk.Button(tab, text='+', command=__create_add_window)
@@ -65,5 +76,6 @@ class Interface(tk.Tk):
 
 if __name__ == '__main__':
     index = Interface()
+    comp = computer.Computer()
     index.mainloop()
 
