@@ -34,6 +34,15 @@ class Interface(tk.Tk):
 
 
     def __create_tab2(self, tab):
+        def list_computers():
+            computers = Computer.select_all()
+            for computer in computers:
+                devices.insert(parent='', index='end', text=computer[0], values=(computer[1], computer[2], computer[3]))
+
+        def clean_list():
+            for item in devices.get_children():
+                devices.delete(item)
+
         def __create_add_window():
             def save_computer():
                 comp.name = name_entry.get()
@@ -43,6 +52,9 @@ class Interface(tk.Tk):
                 name_entry.delete(0, tk.END)
                 ipv4_entry.delete(0, tk.END)
                 ipv6_entry.delete(0, tk.END)
+                clean_list()
+                list_computers()
+
 
             add_window = tk.Toplevel(index)
             add_window.geometry('500x200')
@@ -74,10 +86,7 @@ class Interface(tk.Tk):
         devices.heading('delete', text='')
         devices.grid(row=1, column=0, columnspan=5)
 
-        computers = Computer.select_all()
-        for computer in computers:
-            print(computer)
-            devices.insert(parent='', index='end', text=computer[1], values=(computer[2], computer[3]))
+        list_computers()
 
 
 
