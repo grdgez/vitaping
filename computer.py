@@ -17,6 +17,14 @@ class Computer:
             conn.commit()
         return res
 
+    @classmethod
+    def select_all(self):
+        with sqlite3.connect('./db/network.db') as conn:
+            cur = conn.cursor()
+            res = cur.execute('SELECT * FROM computers')
+            conn.commit()
+        return res
+
     def edit(self):
         pass
 

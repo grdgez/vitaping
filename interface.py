@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-import computer
+from computer import Computer
 
 
 class Interface(tk.Tk):
@@ -70,12 +70,19 @@ class Interface(tk.Tk):
         devices.heading('name', text='Device name')
         devices.heading('ipv4', text='IPv4')
         devices.heading('ipv6', text='IPv6')
+        devices.heading('edit', text='')
+        devices.heading('delete', text='')
         devices.grid(row=1, column=0, columnspan=5)
+
+        computers = Computer.select_all()
+        for computer in computers:
+            print(computer)
+            devices.insert(parent='', index='end', text=computer[1], values=(computer[2], computer[3]))
 
 
 
 if __name__ == '__main__':
     index = Interface()
-    comp = computer.Computer()
+    comp = Computer()
     index.mainloop()
 
